@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 export function Login(){
     const formInput = [
         {label:"UserName",input:"text",name:"username"},
@@ -22,6 +23,7 @@ export function Login(){
                     <input type={input.input} name={input.name} className="border-2 border-[#001233] rounded-xl w-[90%] my-1.5 h-[33px]"/>
                 </div>
             ))}
+            <Link to='/' className="text-right w-[70%] text-[#001233]">Register</Link>
             <button type="submit" className="bg-[#001845] p-2 rounded-2xl w-[50%] text-white font-bold">Login</button>
         </form>
     </div>

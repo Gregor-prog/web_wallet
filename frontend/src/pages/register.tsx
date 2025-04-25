@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 export function Register(){
     const [fullname,setfullname] = useState("")
     const [username,setusername] = useState("")
@@ -45,6 +46,7 @@ export function Register(){
                 <label htmlFor="confirmPassword" className=" font-medium pb-2.5 text-white">Confirm Password: </label><br/>
                 <input type="password" name="confirmPassword" onChange={(e) => {setconfirmpassword(e.target.value)}} className="border-2 border-[#001233] rounded-xl w-[90%] my-1.5 h-[33px]"/>
             </div>
+            <Link to='/login' className="text-right w-[70%] text-[#001233]">Login</Link>
             <button type="submit" className="bg-[#001845] p-2 rounded-2xl w-[50%] text-white font-bold">Register</button>
         </form>
     </div>
