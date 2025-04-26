@@ -1,6 +1,7 @@
 import express from "express"
 import dotenv from 'dotenv'
 import pool from "./db"
+import userRouter from "./routes/user.route"
 dotenv.config()
 
 const app = express()
@@ -16,6 +17,8 @@ pool.connect()
     console.log(error)
     process.exit(1)
 })
+
+app.use('/user',userRouter)
 
 
 app.listen(port,() => {
