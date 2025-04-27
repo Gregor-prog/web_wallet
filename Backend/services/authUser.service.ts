@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 dotenv.config()
 import { user } from '../types'
 import pool from '../db'
+import { generateToken } from '../utils/generateToken'
 export const register = async (fullname:string,username:string,email:string,password:string) => {
     const createTableQuery = `CREATE TABLE IF NOT EXIST users(
     user_id SERIAL PRIMARY KEY NOT NULL,
@@ -37,6 +38,14 @@ export const login = async (username:string,password:string) => {
     const checkPassword = bcrypt.compare(password,checkUser.rows[0].password)
     if(!checkPassword){
         throw Object.assign(new Error("incorrect password"),{statusCode:401})
+    }
+    const token = generateToken(checkUser.rows[0].user_id,"user")
+    return {
+        user_id:checkUser.rows[0].password,
+        fullname:checkUser.rows[0].fullname,
+        username:checkUser.rows[0].username,
+        email:checkUser.rows[0].email,
+        token:token
     }
     
 }
