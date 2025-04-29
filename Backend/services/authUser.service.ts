@@ -4,15 +4,19 @@ dotenv.config()
 import { user } from '../types'
 import pool from '../db'
 import { generateToken } from '../utils/generateToken'
-export const register = async (fullname:string,username:string,email:string,password:string) => {
-    const createTableQuery = `CREATE TABLE IF NOT EXIST users(
-    user_id SERIAL PRIMARY KEY NOT NULL,
-    fullname VARCHAR(255),
-    username VARCHAR(255) UNIQUE,
-    email VARCHAR(255) UNIQUE,
-    password VARCHAR(255)
-    )`
-    const createTable = await pool.query(createTableQuery)
+export const register = async (fullname:string,username:string,email:string,phone_number:string,password:string) => {
+    // const createTableQuery = `CREATE TABLE IF NOT EXIST users (
+    // user_id SERIAL PRIMARY KEY NOT NULL,
+    // fullname VARCHAR(255),
+    // username VARCHAR(255) UNIQUE,
+    // email VARCHAR(255) UNIQUE,
+    // phone_number VARCHAR(255) UNIQUE,
+    // password VARCHAR(255)
+    // wallet_balance INT,
+    // createdAt TIMESTAMP,
+    // updatedAt TIMESTAMP
+    // )`
+    // const createTable = await pool.query(createTableQuery)
     const userExistQuery = `SELECT * FROM users WHERE username = $1`
     const userExist = await pool.query(userExistQuery,[username])
     // console.log(userExist)
@@ -22,8 +26,8 @@ export const register = async (fullname:string,username:string,email:string,pass
         
     }
     const hashPassword = await bcrypt.hash(password,10)
-    const createUserQuery = `INSERT INTO users(fullname,username,email,password) VALUES ($1,$2,$3,$4)`
-    const createUser = await pool.query(createUserQuery,[fullname,username,email,hashPassword])
+    const createUserQuery = `INSERT INTO users(fullname,username,email,phone_number,password,wallet_balance) VALUES ($1,$2,$3,$4,$5,$6)`
+    const createUser = await pool.query(createUserQuery,[fullname,username,email,phone_number,hashPassword,0])
     console.log(createUser)
     return createUser
 }

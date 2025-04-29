@@ -4,14 +4,33 @@ export function Login(){
         {label:"UserName",input:"text",name:"username"},
         {label:"password",input:"password",name:"password"}
     ]
-    function login(e:any){
+   async function login(e:any){
         e.preventDefault()
         const form = e.target;
         const formData = new FormData(form)
         const userName = formData.get("username")
         const password  = formData.get("password")
-        console.log(userName)
-        console.log(password)
+        
+        try {
+            const login = await fetch("http://localhost:4500/user/login",{
+                method: "POST",
+                headers:{
+                    "content-Type":"application/json"
+                },
+                body: JSON.stringify({
+                    username:userName,
+                    password:password
+                })
+            })
+            // console.log(login)
+            if(login.ok){
+                alert("login successfully")
+            }
+        } catch (error) {
+            if(error instanceof Error){
+                alert(error.message)
+            }
+        }
     }
     return <div className="flex flex-row items-center justify-evenly h-[100%] bg-[#979dac]">
         

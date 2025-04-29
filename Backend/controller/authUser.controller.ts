@@ -4,8 +4,9 @@ import { login } from "../services/authUser.service";
 
 export const registerUser =async (req:Request,res:Response) => {
     try {
-    const {fullname,username,email,password} = req.body
-    const registerUser = await register(fullname,username,email,password)
+    const {fullname,username,email,phone_number,password} = req.body
+    console.log(username,fullname,email,password)
+    const registerUser = await register(fullname,username,email,phone_number,password)
     res.status(200).json({
         success:true,
         message:"registered successfully",
