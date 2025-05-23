@@ -48,7 +48,7 @@ export function Register(){
                     // }
                 }
         }
-    return <div className="flex flex-row items-center justify-evenly  bg-[#979dac] ">
+    return <div className="flex flex-row items-center justify-evenly  bg-[#979dac] w-[100%] ">
         <form action="" onSubmit={(e) => {registerUser(e)}} className="p-[40px] my-10 bg-[#33415c8c] flex flex-col items-center gap-2 rounded-2xl shadow-2xl w-[100%] sm:w-[65%] lg:w-[45%]">
             <p className="text-2xl font-semibold pb-2.5 text-white">Register</p>
             <div className="text-left w-[90%]">

@@ -22,12 +22,18 @@ export function Login(){
                     password:password
                 })
             })
-            // console.log(login)
+            const response = await login.json()
             if(login.ok){
                 alert("login successfully")
             }
+            if(!login.ok){
+                console.log(response)
+                throw new Error(response.data)
+            }
         } catch (error) {
             if(error instanceof Error){
+                // const [a] = error
+                console.log(error.message)
                 alert(error.message)
             }
         }
