@@ -1,5 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, replace } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { userUser } from "../authentication/userContext";
+import { useState } from "react";
 export function Login(){
+    const [redirect,setredirect] = useState(false)
+    const user = userUser()
     const formInput = [
         {label:"UserName",input:"text",name:"username"},
         {label:"password",input:"password",name:"password"}
@@ -24,7 +29,9 @@ export function Login(){
             })
             const response = await login.json()
             if(login.ok){
-                alert("login successfully")
+                user?.setUser({username:'john doe',role:'admin'})
+                alert("login success")
+                setredirect(true)
             }
             if(!login.ok){
                 console.log(response)
@@ -37,6 +44,9 @@ export function Login(){
                 alert(error.message)
             }
         }
+    }
+    if(redirect){
+                return <Navigate to='/Dashboard' replace/>
     }
     return <div className="flex flex-row items-center justify-evenly h-[100%] bg-[#979dac]">
         
